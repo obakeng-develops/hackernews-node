@@ -9,18 +9,20 @@ const prisma = new PrismaClient()
 const resolvers = {
     Query: {
         info: () => `This is the API of a Hackernews Clone`,
-        feed: () => links,
+        feed: async (parent, args, context) => {
+            return context.prisma.link.findMany()
+        },
     },
     Mutation: {
-        post: (parent, args) => {
+        post: (parent, args, context, info) => {
 
-            const link = {
-                id: `link-${idCount++}`,
-                description: args.description,
-                url: args.url,
-            }
-            links.push(link)
-            return link
+            const newLink = context.prisma.link.create({
+                data: {
+                    url: args.url,
+                    description: args.description
+                },
+            })
+            return newLink
         }
     },
 }
