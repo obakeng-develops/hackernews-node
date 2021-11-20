@@ -1,13 +1,9 @@
 const { ApolloServer } = require('apollo-server');
+const { PrismaClient } = require('@prisma/client');
 const fs = require('fs');
 const path = require('path');
+const prisma = new PrismaClient()
 
-
-let links = [{
-    id: 'link-0',
-    url: 'www.howtographql.com',
-    description: 'Fullstack tutorial for GraphQL'
-}]
 
 // 2
 const resolvers = {
@@ -17,8 +13,6 @@ const resolvers = {
     },
     Mutation: {
         post: (parent, args) => {
-            
-            let idCount = links.length
 
             const link = {
                 id: `link-${idCount++}`,
@@ -37,7 +31,10 @@ const server = new ApolloServer({
         path.join(__dirname, 'schema.graphql'),
         'utf8'
     ),
-    resolvers
+    resolvers,
+    context: {
+        prisma,
+    }
 })
 
 server
