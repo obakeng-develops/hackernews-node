@@ -19,6 +19,7 @@ const pubsub = new PubSub()
 const resolvers = {
     Query,
     Mutation,
+    Subscription,
     User,
     Link
 }
