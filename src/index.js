@@ -40,9 +40,9 @@ const server = new ApolloServer({
                 req && req.headers.authorization
                     ? getUserId(req)
                     : null
-        }
+        };
     }
-})
+});
 
 server
     .listen()
