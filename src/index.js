@@ -5,9 +5,9 @@ const { PubSub } = require('apollo-server');
 
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
+const Subscription = require('./resolvers/Subscription');
 const User = require('./resolvers/User');
 const Link = require('./resolvers/Link');
-
 
 const fs = require('fs');
 const path = require('path');
